@@ -74,11 +74,13 @@ button {
 }
 .delete {
   margin-left: 25px;
-  background: black;
-  border: 2px solid black;
+  background: grey;
+  border: 2px solid grey;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
-[type="text"] {
+#taskInput {
+  /* outline-color: rgba(175, 47, 47, 0.5); */
+  outline: none;
   width: 100%;
   display: inline-block;
   -webkit-appearance: none;
@@ -88,6 +90,9 @@ button {
   border-radius: 5px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
+#taskInput:focus {
+  box-shadow: 0 0 3pt 2pt rgba(175, 47, 47, 0.5);
+}
 
 [type="checkbox"] {
   margin-right: 1rem;
@@ -95,7 +100,7 @@ button {
 }
 
 h1 {
-  color: rgba(175, 47, 47);
+  color: rgba(175, 47, 47, 0.5);
   font-size: 75px;
   min-width: 500px;
   text-align: center;
@@ -117,6 +122,7 @@ li {
 }
 
 li span {
+  outline: none;
   display: inline-block;
   padding: 0.5rem;
   width: 600px;
@@ -124,6 +130,9 @@ li span {
   font-size: 25px;
   border-radius: 4px;
   border: 2px solid transparent;
+}
+li span:focus {
+  box-shadow: 0 0 3pt 2pt rgba(175, 47, 47, 0.5);
 }
 .noTasks {
   background: #f5f5f5;
