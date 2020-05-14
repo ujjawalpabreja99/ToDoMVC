@@ -20,8 +20,6 @@ export default class Controller {
     this.view.bindToggleTask(id => this.model.toggleTask(id));
     this.view.bindGetTasks(() => this.model.getTasks());
   }
-  renderTasks = tasks => {
-    // tasks.sort((taskA, taskB) => taskA.id - taskB.id);
-    return this.view.renderTasks(tasks);
-  };
+
+  renderTasks = tasks => this.view.renderTasks(tasks);
 }
