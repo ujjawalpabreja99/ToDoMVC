@@ -1,34 +1,44 @@
 // import createElement from "./createElement";
 import createTaskElement from "./createTaskElement";
 import createPrompt from "./createPrompt";
-const COMPLETE = "complete";
-const INCOMPLETE = "incomplete";
-const SPAN = "span";
+import {
+  COMPLETE,
+  INCOMPLETE,
+  SPAN,
+  RENDERALL,
+  RENDERPENDING,
+  RENDERCOMPLETED
+} from "./constants";
+
 export default class View {
   constructor() {
-    this.setupHTML();
+    this.setupHTMLElements();
     this.editedTaskText = "";
     this.editingTask();
     this.renderListType = "renderAll";
     this.renderList();
   }
-  setupHTML() {
-    this.app = document.querySelector("#ToDoMVC");
-    this.form = document.querySelector("#taskForm");
-    this.input = document.querySelector("#taskInput");
-    this.taskList = document.querySelector("#taskList");
+  setupHTMLElements() {
+    this.app = this.getElement("ToDoMVC");
+    this.form = this.getElement("taskForm");
+    this.input = this.getElement("taskInput");
+    this.taskList = this.getElement("taskList");
+  }
+  getElement(id) {
+    return document.getElementById(id);
   }
   renderTasks(tasks) {
     while (this.taskList.firstChild) {
       this.taskList.removeChild(this.taskList.firstChild);
     }
+    const renderAll = this.renderListType === RENDERALL;
+    const renderPending = this.renderListType === RENDERPENDING;
+    const renderCompleted = this.renderListType === RENDERCOMPLETED;
     tasks.forEach(task => {
       if (
-        (task.status === COMPLETE &&
-          this.renderListType === "renderCompleted") ||
-        (task.status === INCOMPLETE &&
-          this.renderListType === "renderPending") ||
-        this.renderListType === "renderAll"
+        renderAll ||
+        (renderCompleted && task.status === COMPLETE) ||
+        (renderPending && task.status === INCOMPLETE)
       ) {
         const newTaskElement = createTaskElement(task);
         this.taskList.append(newTaskElement);
@@ -49,9 +59,9 @@ export default class View {
   renderList() {
     this.app.addEventListener("click", e => {
       if (
-        e.target.id === "renderAll" ||
-        e.target.id === "renderPending" ||
-        e.target.id === "renderCompleted"
+        e.target.id === RENDERALL ||
+        e.target.id === RENDERPENDING ||
+        e.target.id === RENDERCOMPLETED
       ) {
         this.renderListType = e.target.id;
         this.renderTasks(this.getTasks());

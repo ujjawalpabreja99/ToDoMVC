@@ -1,11 +1,13 @@
+import { STATUS, COMPLETE, INCOMPLETE } from "./constants";
 const localStorage = sessionStorage;
-const STATUS = "status";
-const COMPLETE = "complete";
-const INCOMPLETE = "incomplete";
+
 export default class Model {
   constructor() {
     this.tasks = [];
-    var keys = Object.keys(localStorage);
+    this.populateTasks();
+  }
+  populateTasks() {
+    const keys = Object.keys(localStorage);
     var i = keys.length;
     while (i--) {
       if (keys[i].includes(STATUS)) {
@@ -21,14 +23,13 @@ export default class Model {
       ];
     }
   }
-
   bindModelToViewRender(renderTasks) {
     this.renderTasks = renderTasks;
   }
   addTask(taskText) {
     // const isPresent = this.tasks.some(tasks => tasks.text === taskText);
     // if (!isPresent) {
-    var task = {
+    const task = {
       id: Date.now(),
       text: taskText,
       status: INCOMPLETE
@@ -56,15 +57,18 @@ export default class Model {
     this.renderTasks(this.tasks);
   }
   toggleTask(id) {
-    const currentValue = localStorage.getItem(STATUS + id);
+    const currentStatus = localStorage.getItem(STATUS + id);
     this.tasks = this.tasks.map(task =>
       task.id === id
-        ? { ...task, status: currentValue === COMPLETE ? INCOMPLETE : COMPLETE }
+        ? {
+            ...task,
+            status: currentStatus === COMPLETE ? INCOMPLETE : COMPLETE
+          }
         : task
     );
     localStorage.setItem(
       STATUS + id,
-      currentValue === COMPLETE ? INCOMPLETE : COMPLETE
+      currentStatus === COMPLETE ? INCOMPLETE : COMPLETE
     );
     this.renderTasks(this.tasks);
   }
