@@ -1,75 +1,51 @@
-import { STATUS, COMPLETE, INCOMPLETE } from "./constants";
-const localStorage = sessionStorage;
+import { COMPLETE, INCOMPLETE } from "./constants";
 
 export default class Model {
   constructor() {
-    this.tasks = [];
-    this.populateTasks();
+    this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    console.log(this.tasks);
   }
-  populateTasks() {
-    const keys = Object.keys(localStorage);
-    var i = keys.length;
-    while (i--) {
-      if (keys[i].includes(STATUS)) {
-        continue;
-      }
-      this.tasks = [
-        ...this.tasks,
-        {
-          id: keys[i],
-          text: localStorage.getItem(keys[i]),
-          status: localStorage.getItem(STATUS + keys[i])
-        }
-      ];
-    }
+  updateLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
   }
-
-  addTask(taskText) {
-    // const isPresent = this.tasks.some(tasks => tasks.text === taskText);
-    // if (!isPresent) {
+  addTask(taskDescription) {
     const task = {
       id: Date.now(),
-      text: taskText,
+      description: taskDescription,
       status: INCOMPLETE
     };
     this.tasks = [...this.tasks, task];
-    localStorage.setItem(task.id, task.text);
-    localStorage.setItem(STATUS + task.id, task.status);
+    this.updateLocalStorage();
     this.renderTasks(this.tasks);
-    // } else {
-    //   alert("Task already present in your to-do list!");
-    // }
   }
-  editTask(id, taskText) {
-    // console.log("edittask");
+
+  editTask(id, editedDescription) {
     this.tasks = this.tasks.map(task =>
-      task.id === id ? { ...task, text: taskText } : task
+      task.id === id ? { ...task, description: editedDescription } : task
     );
-    localStorage.setItem(id, taskText);
+    this.updateLocalStorage();
     this.renderTasks(this.tasks);
   }
+
   deleteTask(id) {
     this.tasks = this.tasks.filter(task => task.id !== id);
-    localStorage.removeItem(id);
-    localStorage.removeItem(STATUS + id);
+    this.updateLocalStorage();
     this.renderTasks(this.tasks);
   }
+
   toggleTask(id) {
-    const currentStatus = localStorage.getItem(STATUS + id);
     this.tasks = this.tasks.map(task =>
       task.id === id
         ? {
             ...task,
-            status: currentStatus === COMPLETE ? INCOMPLETE : COMPLETE
+            status: task.status === COMPLETE ? INCOMPLETE : COMPLETE
           }
         : task
     );
-    localStorage.setItem(
-      STATUS + id,
-      currentStatus === COMPLETE ? INCOMPLETE : COMPLETE
-    );
+    this.updateLocalStorage();
     this.renderTasks(this.tasks);
   }
+
   bindRenderTasks(renderTasks) {
     this.renderTasks = renderTasks;
   }

@@ -3,14 +3,6 @@ const CHECKBOX = "checkbox";
 const SPAN = "span";
 const COMPLETE = "complete";
 export default function createTaskElement(task) {
-  // const li = document.createElement("li");
-  // li.id = task.id;
-  // const checkbox = document.createElement("input");
-  // checkbox.type = "checkbox";
-  // checkbox.checked = task.isComplete === "true" ? true : false;
-  // checkbox.id = "checkbox" + task.id;
-  // const span = document.createElement("span");
-  // span.id = "span" + task.id;
   const li = createElement({ tag: "li", id: task.id });
   const checkbox = createElement({
     tag: "input",
@@ -23,12 +15,14 @@ export default function createTaskElement(task) {
     id: SPAN + task.id,
     contentEditable: true
   });
-  // span.contentEditable = true;
   if (task.status === COMPLETE) {
-    const strikethrough = createElement({ tag: "s", textContent: task.text });
+    const strikethrough = createElement({
+      tag: "s",
+      textContent: task.description
+    });
     span.append(strikethrough);
   } else {
-    span.textContent = task.text;
+    span.textContent = task.description;
   }
   const deleteButton = createElement({
     tag: "button",

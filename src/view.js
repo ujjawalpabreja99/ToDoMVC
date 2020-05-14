@@ -14,9 +14,8 @@ export default class View {
     this.setupHTMLElements();
     this.attachEventListeners();
     this.renderTaskList = "renderAll";
-    this.editedTaskText = "";
-    this.editingTask();
-    // this.renderList();
+    this.editedDescription = "";
+    this.editingDescription();
   }
 
   setupHTMLElements() {
@@ -41,6 +40,14 @@ export default class View {
     this.renderTasks(this.getTasks());
   };
 
+  editingDescription() {
+    this.taskList.addEventListener("input", e => {
+      if (e.target.id === SPAN + e.target.parentElement.id) {
+        this.editedDescription = e.target.innerText;
+      }
+    });
+  }
+
   renderTasks(tasks) {
     while (this.taskList.firstChild) {
       this.taskList.removeChild(this.taskList.firstChild);
@@ -61,17 +68,9 @@ export default class View {
     }
   }
 
-  editingTask() {
-    this.taskList.addEventListener("input", e => {
-      if (e.target.id === SPAN + e.target.parentElement.id) {
-        this.editedTaskText = e.target.innerText;
-      }
-    });
-  }
-
   bindAddTask(addTaskHandler) {
     this.form.addEventListener("submit", e => {
-      // e.preventDefault();
+      e.preventDefault();
       if (this.input.value) {
         addTaskHandler(this.input.value);
         this.input.value = "";
@@ -83,19 +82,19 @@ export default class View {
 
   bindEditTask(editTaskHandler) {
     this.taskList.addEventListener("focusout", e => {
-      if (this.editedTaskText) {
-        editTaskHandler(e.target.parentElement.id, this.editedTaskText);
-        this.editedTaskText = "";
+      if (this.editedDescription) {
+        const id = parseInt(e.target.parentElement.id, 10);
+        editTaskHandler(id, this.editedDescription);
+        this.editedDescription = "";
       }
     });
   }
 
   bindDeleteTask(deleteTaskHandler) {
     this.taskList.addEventListener("click", e => {
-      console.log(e.target);
       if (e.target.id === "deleteTask") {
-        console.log(e.target.parentElement.id);
-        deleteTaskHandler(e.target.parentElement.id);
+        const id = parseInt(e.target.parentElement.id, 10);
+        deleteTaskHandler(id);
       }
     });
   }
@@ -103,7 +102,8 @@ export default class View {
   bindToggleTask(toggleTaskHandler) {
     this.taskList.addEventListener("change", e => {
       if (e.target.type === "checkbox") {
-        toggleTaskHandler(e.target.parentElement.id);
+        const id = parseInt(e.target.parentElement.id, 10);
+        toggleTaskHandler(id);
       }
     });
   }
