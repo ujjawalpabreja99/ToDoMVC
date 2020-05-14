@@ -23,9 +23,7 @@ export default class Model {
       ];
     }
   }
-  bindModelToViewRender(renderTasks) {
-    this.renderTasks = renderTasks;
-  }
+
   addTask(taskText) {
     // const isPresent = this.tasks.some(tasks => tasks.text === taskText);
     // if (!isPresent) {
@@ -72,7 +70,10 @@ export default class Model {
     );
     this.renderTasks(this.tasks);
   }
-  returnTasks() {
+  bindRenderTasks(renderTasks) {
+    this.renderTasks = renderTasks;
+  }
+  getTasks() {
     return this.tasks;
   }
   // print() {

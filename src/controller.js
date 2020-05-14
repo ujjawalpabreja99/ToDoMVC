@@ -7,7 +7,7 @@ export default class Controller {
     this.renderTasks(this.model.tasks);
   }
   connectModeltoView() {
-    this.model.bindModelToViewRender(this.renderTasks);
+    this.model.bindRenderTasks(this.renderTasks);
   }
   connectViewtoModel() {
     // this.view.bindAddTask(this.addTaskHandler);
@@ -19,7 +19,7 @@ export default class Controller {
     this.view.bindEditTask((id, taskText) => this.model.editTask(id, taskText));
     this.view.bindDeleteTask(id => this.model.deleteTask(id));
     this.view.bindToggleTask(id => this.model.toggleTask(id));
-    this.view.bindGetTasks(() => this.model.returnTasks());
+    this.view.bindGetTasks(() => this.model.getTasks());
   }
   renderTasks = tasks => {
     tasks.sort((taskA, taskB) => taskA.id - taskB.id);

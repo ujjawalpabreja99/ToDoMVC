@@ -1,4 +1,3 @@
-// import createElement from "./createElement";
 import createTaskElement from "./createTaskElement";
 import createPrompt from "./createPrompt";
 import {
@@ -13,42 +12,55 @@ import {
 export default class View {
   constructor() {
     this.setupHTMLElements();
+    this.attachEventListeners();
+    this.renderTaskList = "renderAll";
     this.editedTaskText = "";
     this.editingTask();
-    this.renderListType = "renderAll";
-    this.renderList();
+    // this.renderList();
   }
+
   setupHTMLElements() {
-    this.app = this.getElement("ToDoMVC");
     this.form = this.getElement("taskForm");
     this.input = this.getElement("taskInput");
     this.taskList = this.getElement("taskList");
+    this.renderAllButton = this.getElement("renderAll");
+    this.renderPendingButton = this.getElement("renderPending");
+    this.renderCompletedButton = this.getElement("renderCompleted");
   }
   getElement(id) {
     return document.getElementById(id);
   }
+
+  attachEventListeners() {
+    this.renderAllButton.addEventListener("click", this.renderList);
+    this.renderPendingButton.addEventListener("click", this.renderList);
+    this.renderCompletedButton.addEventListener("click", this.renderList);
+  }
+  renderList = e => {
+    this.renderTaskList = e.target.id;
+    this.renderTasks(this.getTasks());
+  };
+
   renderTasks(tasks) {
     while (this.taskList.firstChild) {
       this.taskList.removeChild(this.taskList.firstChild);
     }
-    const renderAll = this.renderListType === RENDERALL;
-    const renderPending = this.renderListType === RENDERPENDING;
-    const renderCompleted = this.renderListType === RENDERCOMPLETED;
     tasks.forEach(task => {
       if (
-        renderAll ||
-        (renderCompleted && task.status === COMPLETE) ||
-        (renderPending && task.status === INCOMPLETE)
+        this.renderTaskList === RENDERALL ||
+        (this.renderTaskList === RENDERPENDING && task.status === INCOMPLETE) ||
+        (this.renderTaskList === RENDERCOMPLETED && task.status === COMPLETE)
       ) {
         const newTaskElement = createTaskElement(task);
         this.taskList.append(newTaskElement);
       }
     });
     if (!this.taskList.firstChild) {
-      const newPrompt = createPrompt(this.renderListType);
+      const newPrompt = createPrompt(this.renderTaskList);
       this.taskList.append(newPrompt);
     }
   }
+
   editingTask() {
     this.taskList.addEventListener("input", e => {
       if (e.target.id === SPAN + e.target.parentElement.id) {
@@ -56,18 +68,7 @@ export default class View {
       }
     });
   }
-  renderList() {
-    this.app.addEventListener("click", e => {
-      if (
-        e.target.id === RENDERALL ||
-        e.target.id === RENDERPENDING ||
-        e.target.id === RENDERCOMPLETED
-      ) {
-        this.renderListType = e.target.id;
-        this.renderTasks(this.getTasks());
-      }
-    });
-  }
+
   bindAddTask(addTaskHandler) {
     this.form.addEventListener("submit", e => {
       // e.preventDefault();
@@ -79,6 +80,7 @@ export default class View {
       }
     });
   }
+
   bindEditTask(editTaskHandler) {
     this.taskList.addEventListener("focusout", e => {
       if (this.editedTaskText) {
@@ -87,6 +89,7 @@ export default class View {
       }
     });
   }
+
   bindDeleteTask(deleteTaskHandler) {
     this.taskList.addEventListener("click", e => {
       console.log(e.target);
@@ -96,6 +99,7 @@ export default class View {
       }
     });
   }
+
   bindToggleTask(toggleTaskHandler) {
     this.taskList.addEventListener("change", e => {
       if (e.target.type === "checkbox") {
@@ -103,6 +107,7 @@ export default class View {
       }
     });
   }
+
   bindGetTasks(getTasks) {
     this.getTasks = getTasks;
   }
