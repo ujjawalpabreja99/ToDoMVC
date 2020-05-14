@@ -93,7 +93,7 @@ export default class View {
       }
     });
   }
-  bindGetTasks(returnTasks) {
-    this.getTasks = returnTasks;
+  bindGetTasks(getTasks) {
+    this.getTasks = getTasks;
   }
 }
