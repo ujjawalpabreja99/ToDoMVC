@@ -8,7 +8,7 @@ body {
   line-height: 1.4em;
   background: #f5f5f5;
   color: #4d4d4d;
-  min-width: 230px;
+  min-width: 500px;
   max-width: 600px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
@@ -25,12 +25,12 @@ body {
 form {
   display: flex;
   margin-bottom: 2rem;
-  min-width: 575px;
+  min-width: 530px;
 }
 
 .buttonDiv {
   text-align: center;
-  min-width: 500px;
+  min-width: 530px;
 }
 button {
   outline: none;
@@ -112,10 +112,11 @@ button:active {
 header {
   color: rgba(175, 47, 47, 0.5);
   /* font-weight: 25; */
-  font-size: 75px;
-  min-width: 500px;
+  font-family: "Helvetica Neue";
+  font-size: 100px;
+  min-width: 530px;
   text-align: center;
-  margin: 50px 0 50px 0;
+  margin: 75px 0 75px 0;
 }
 
 ul {
@@ -148,7 +149,7 @@ li span:focus {
 }
 .noTasks {
   background: #f5f5f5;
-  color: rgba(175, 47, 47, 0.5);
+  color: rgba(175, 47, 47, 0.2);
   text-align: center;
   font-size: 30px;
   font-weight: 50;
