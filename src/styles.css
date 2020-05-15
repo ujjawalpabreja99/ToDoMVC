@@ -38,7 +38,7 @@ button {
   background: rgba(175, 47, 47);
   color: white;
   border-radius: 5px;
-  margin: 0.2 0.5rem;
+  margin: 0.2 0.2rem;
   display: inline-block;
   -webkit-appearance: none;
   padding: 0.5rem 1rem;
@@ -47,6 +47,10 @@ button {
 }
 button:active {
   background: rgba(175, 47, 47, 0.5);
+}
+#submitTask {
+  margin-left: 0.5rem;
+  margin-right: 0;
 }
 .delete {
   margin-left: 25px;
