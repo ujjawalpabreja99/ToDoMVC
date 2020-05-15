@@ -52,6 +52,16 @@ button:active {
   margin-left: 0.5rem;
   margin-right: 0;
 }
+#renderAll,
+#renderPending,
+#renderCompleted {
+  min-width: 160px;
+}
+#renderAll,
+#renderPending,
+#renderCompleted:active {
+  border: none;
+}
 .delete {
   margin-left: 25px;
   background: rgba(0, 0, 0, 0.5);
@@ -59,7 +69,8 @@ button:active {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 .delete:active {
-  background: grey;
+  background: lightgrey;
+  border: 2px solid lightgrey;
 }
 #taskInput {
   outline: none;
@@ -126,5 +137,6 @@ li span:focus {
   font-family: "Helvetica Neue";
   font-size: 30px;
   font-weight: 50;
+  min-width: 500px;
   padding: 1rem 1rem 1rem 1rem;
 }
