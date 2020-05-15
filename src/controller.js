@@ -4,7 +4,7 @@ export default class Controller {
     this.view = view;
     this.connectModeltoView();
     this.connectViewtoModel();
-    this.initRender();
+    this.initialRender();
   }
   connectModeltoView() {
     this.model.bindRenderTasks(tasks => this.view.renderTasks(tasks));
@@ -21,5 +21,5 @@ export default class Controller {
     this.view.bindGetTasks(() => this.model.getTasks());
   }
 
-  initRender = () => this.view.renderTasks(this.model.tasks);
+  initialRender = () => this.view.renderTasks(this.model.tasks);
 }
