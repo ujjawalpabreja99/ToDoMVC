@@ -1,8 +1,8 @@
-import { COMPLETE, INCOMPLETE, TASKS } from "./constants";
+import * as constants from "./constants";
 
 export default class Model {
   constructor() {
-    this.tasks = JSON.parse(localStorage.getItem(TASKS)) || [];
+    this.tasks = JSON.parse(localStorage.getItem(constants.TASKS)) || [];
   }
 
   bindRenderTasks(renderTasks) {
@@ -10,7 +10,7 @@ export default class Model {
   }
 
   updateLocalStorage(tasks) {
-    localStorage.setItem(TASKS, JSON.stringify(tasks));
+    localStorage.setItem(constants.TASKS, JSON.stringify(tasks));
     this.renderTasks(tasks);
   }
 
@@ -18,7 +18,7 @@ export default class Model {
     const task = {
       id: Date.now(),
       description: taskDescription,
-      status: INCOMPLETE
+      status: constants.INCOMPLETE
     };
     this.tasks = [...this.tasks, task];
     this.updateLocalStorage(this.tasks);
@@ -41,7 +41,10 @@ export default class Model {
       task.id === id
         ? {
             ...task,
-            status: task.status === COMPLETE ? INCOMPLETE : COMPLETE
+            status:
+              task.status === constants.COMPLETE
+                ? constants.INCOMPLETE
+                : constants.COMPLETE
           }
         : task
     );
