@@ -4,12 +4,14 @@ export default class Model {
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem(TASKS)) || [];
   }
-  updateLocalStorage(tasks) {
-    localStorage.setItem(TASKS, JSON.stringify(tasks));
-  }
 
   bindRenderTasks(renderTasks) {
     this.renderTasks = renderTasks;
+  }
+
+  updateLocalStorage(tasks) {
+    localStorage.setItem(TASKS, JSON.stringify(tasks));
+    this.renderTasks(tasks);
   }
 
   addTask(taskDescription) {
@@ -20,7 +22,6 @@ export default class Model {
     };
     this.tasks = [...this.tasks, task];
     this.updateLocalStorage(this.tasks);
-    this.renderTasks(this.tasks);
   }
 
   editTask(id, editedDescription) {
@@ -28,13 +29,11 @@ export default class Model {
       task.id === id ? { ...task, description: editedDescription } : task
     );
     this.updateLocalStorage(this.tasks);
-    this.renderTasks(this.tasks);
   }
 
   deleteTask(id) {
     this.tasks = this.tasks.filter(task => task.id !== id);
     this.updateLocalStorage(this.tasks);
-    this.renderTasks(this.tasks);
   }
 
   toggleTask(id) {
@@ -47,7 +46,6 @@ export default class Model {
         : task
     );
     this.updateLocalStorage(this.tasks);
-    this.renderTasks(this.tasks);
   }
 
   getTasks() {
