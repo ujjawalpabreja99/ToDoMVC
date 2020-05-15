@@ -48,37 +48,6 @@ button {
 button:active {
   background: rgba(175, 47, 47, 0.5);
 }
-
-#renderAll {
-  outline: none;
-  background: rgba(175, 47, 47);
-  border: none;
-  margin: 0 0.2rem;
-  width: auto;
-}
-#renderAll:active {
-  background: rgba(175, 47, 47, 0.5);
-}
-#renderPending {
-  outline: none;
-  background: rgba(175, 47, 47);
-  border: none;
-  margin: 0 0.2rem;
-  width: auto;
-}
-#renderPending:active {
-  background: rgba(175, 47, 47, 0.5);
-}
-#renderCompleted {
-  outline: none;
-  background: rgba(175, 47, 47);
-  border: none;
-  margin: 0 0.2rem;
-  width: auto;
-}
-#renderCompleted:active {
-  background: rgba(175, 47, 47, 0.5);
-}
 .delete {
   margin-left: 25px;
   background: rgba(0, 0, 0, 0.5);
@@ -89,7 +58,6 @@ button:active {
   background: grey;
 }
 #taskInput {
-  /* outline-color: rgba(175, 47, 47, 0.5); */
   outline: none;
   width: 100%;
   display: inline-block;
@@ -111,7 +79,6 @@ button:active {
 
 header {
   color: rgba(0, 0, 0, 0.5);
-  /* font-weight: 25; */
   font-family: "Helvetica Neue";
   font-size: 100px;
   min-width: 530px;
@@ -138,8 +105,9 @@ li span {
   outline: none;
   display: inline-block;
   padding: 0.5rem;
-  width: 600px;
+  width: 500px;
   max-width: 350px;
+  min-width: 300px;
   font-size: 25px;
   border-radius: 4px;
   border: 2px solid transparent;
