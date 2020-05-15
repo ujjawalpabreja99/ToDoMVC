@@ -1,13 +1,17 @@
-import { COMPLETE, INCOMPLETE } from "./constants";
+import { COMPLETE, INCOMPLETE, TASKS } from "./constants";
 
 export default class Model {
   constructor() {
-    this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    console.log(this.tasks);
+    this.tasks = JSON.parse(localStorage.getItem(TASKS)) || [];
   }
-  updateLocalStorage() {
-    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  updateLocalStorage(tasks) {
+    localStorage.setItem(TASKS, JSON.stringify(tasks));
   }
+
+  bindRenderTasks(renderTasks) {
+    this.renderTasks = renderTasks;
+  }
+
   addTask(taskDescription) {
     const task = {
       id: Date.now(),
@@ -15,7 +19,7 @@ export default class Model {
       status: INCOMPLETE
     };
     this.tasks = [...this.tasks, task];
-    this.updateLocalStorage();
+    this.updateLocalStorage(this.tasks);
     this.renderTasks(this.tasks);
   }
 
@@ -23,13 +27,13 @@ export default class Model {
     this.tasks = this.tasks.map(task =>
       task.id === id ? { ...task, description: editedDescription } : task
     );
-    this.updateLocalStorage();
+    this.updateLocalStorage(this.tasks);
     this.renderTasks(this.tasks);
   }
 
   deleteTask(id) {
     this.tasks = this.tasks.filter(task => task.id !== id);
-    this.updateLocalStorage();
+    this.updateLocalStorage(this.tasks);
     this.renderTasks(this.tasks);
   }
 
@@ -42,24 +46,11 @@ export default class Model {
           }
         : task
     );
-    this.updateLocalStorage();
+    this.updateLocalStorage(this.tasks);
     this.renderTasks(this.tasks);
   }
 
-  bindRenderTasks(renderTasks) {
-    this.renderTasks = renderTasks;
-  }
   getTasks() {
     return this.tasks;
   }
-  // print() {
-  //   console.log("TASKS = ");
-  //   console.log(this.tasks);
-  //   console.log("LOCALSTORAGE");
-  //   var keys = Object.keys(localStorage);
-  //   var i = keys.length;
-  //   while (i--) {
-  //     console.log(localStorage.getItem(keys[i]));
-  //   }
-  // }
 }

@@ -1,12 +1,14 @@
 import createElement from "./createElement";
-export default function createPrompt(type) {
+import { RENDERPENDING, RENDERCOMPLETED } from "./constants";
+
+export default function createPrompt(currentRender) {
   const newPrompt = createElement({
     tag: "div",
     class: ["noTasks"],
     textContent:
-      type === "renderPending"
+      currentRender === RENDERPENDING
         ? "No pending tasks!"
-        : type === "renderCompleted"
+        : currentRender === RENDERCOMPLETED
         ? "No completed tasks!"
         : "No tasks!"
   });

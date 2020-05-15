@@ -4,10 +4,10 @@ export default class Controller {
     this.view = view;
     this.connectModeltoView();
     this.connectViewtoModel();
-    this.renderTasks(this.model.tasks);
+    this.initRender();
   }
   connectModeltoView() {
-    this.model.bindRenderTasks(this.renderTasks);
+    this.model.bindRenderTasks(tasks => this.view.renderTasks(tasks));
   }
   connectViewtoModel() {
     this.view.bindAddTask(taskDescription =>
@@ -21,5 +21,5 @@ export default class Controller {
     this.view.bindGetTasks(() => this.model.getTasks());
   }
 
-  renderTasks = tasks => this.view.renderTasks(tasks);
+  initRender = () => this.view.renderTasks(this.model.tasks);
 }

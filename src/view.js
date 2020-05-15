@@ -12,68 +12,65 @@ import {
 export default class View {
   constructor() {
     this.setupHTMLElements();
-    this.attachEventListeners();
-    this.renderTaskList = "renderAll";
+    this.setupEventListeners();
+    this.currentRender = RENDERALL;
     this.editedDescription = "";
-    this.editingDescription();
   }
 
   setupHTMLElements() {
-    this.form = this.getElement("taskForm");
-    this.input = this.getElement("taskInput");
-    this.taskList = this.getElement("taskList");
-    this.renderAllButton = this.getElement("renderAll");
-    this.renderPendingButton = this.getElement("renderPending");
-    this.renderCompletedButton = this.getElement("renderCompleted");
+    this.taskForm = this.getElement("taskForm");
+    this.taskInput = this.getElement("taskInput");
+    this.tasksUL = this.getElement("tasksUL");
+    this.renderAllButton = this.getElement(RENDERALL);
+    this.renderPendingButton = this.getElement(RENDERPENDING);
+    this.renderCompletedButton = this.getElement(RENDERCOMPLETED);
   }
   getElement(id) {
     return document.getElementById(id);
   }
 
-  attachEventListeners() {
-    this.renderAllButton.addEventListener("click", this.renderList);
-    this.renderPendingButton.addEventListener("click", this.renderList);
-    this.renderCompletedButton.addEventListener("click", this.renderList);
+  setupEventListeners() {
+    this.tasksUL.addEventListener("input", this.editingTask);
+    this.renderAllButton.addEventListener("click", this.switchList);
+    this.renderPendingButton.addEventListener("click", this.switchList);
+    this.renderCompletedButton.addEventListener("click", this.switchList);
   }
-  renderList = e => {
-    this.renderTaskList = e.target.id;
+  switchList = e => {
+    this.currentRender = e.target.id;
     this.renderTasks(this.getTasks());
   };
-
-  editingDescription() {
-    this.taskList.addEventListener("input", e => {
-      if (e.target.id === SPAN + e.target.parentElement.id) {
-        this.editedDescription = e.target.innerText;
-      }
-    });
-  }
+  editingTask = e => {
+    if (e.target.id === SPAN + e.target.parentElement.id) {
+      this.editedDescription = e.target.innerText;
+    }
+  };
 
   renderTasks(tasks) {
-    while (this.taskList.firstChild) {
-      this.taskList.removeChild(this.taskList.firstChild);
+    while (this.tasksUL.firstChild) {
+      this.tasksUL.removeChild(this.tasksUL.firstChild);
     }
     tasks.forEach(task => {
       if (
-        this.renderTaskList === RENDERALL ||
-        (this.renderTaskList === RENDERPENDING && task.status === INCOMPLETE) ||
-        (this.renderTaskList === RENDERCOMPLETED && task.status === COMPLETE)
+        this.currentRender === RENDERALL ||
+        (this.currentRender === RENDERPENDING && task.status === INCOMPLETE) ||
+        (this.currentRender === RENDERCOMPLETED && task.status === COMPLETE)
       ) {
-        const newTaskElement = createTaskElement(task);
-        this.taskList.append(newTaskElement);
+        const taskLI = createTaskElement(task);
+        this.tasksUL.append(taskLI);
       }
     });
-    if (!this.taskList.firstChild) {
-      const newPrompt = createPrompt(this.renderTaskList);
-      this.taskList.append(newPrompt);
+    if (!this.tasksUL.firstChild) {
+      const promptLI = createPrompt(this.currentRender);
+      this.tasksUL.append(promptLI);
     }
   }
 
   bindAddTask(addTaskHandler) {
-    this.form.addEventListener("submit", e => {
+    this.taskForm.addEventListener("submit", e => {
       e.preventDefault();
-      if (this.input.value) {
-        addTaskHandler(this.input.value);
-        this.input.value = "";
+      if (this.taskInput.value) {
+        addTaskHandler(this.taskInput.value);
+        this.taskInput.value = "";
       } else {
         alert("Can't add an empty task");
       }
@@ -81,7 +78,7 @@ export default class View {
   }
 
   bindEditTask(editTaskHandler) {
-    this.taskList.addEventListener("focusout", e => {
+    this.tasksUL.addEventListener("focusout", e => {
       if (this.editedDescription) {
         const id = parseInt(e.target.parentElement.id, 10);
         editTaskHandler(id, this.editedDescription);
@@ -91,7 +88,7 @@ export default class View {
   }
 
   bindDeleteTask(deleteTaskHandler) {
-    this.taskList.addEventListener("click", e => {
+    this.tasksUL.addEventListener("click", e => {
       if (e.target.id === "deleteTask") {
         const id = parseInt(e.target.parentElement.id, 10);
         deleteTaskHandler(id);
@@ -100,7 +97,7 @@ export default class View {
   }
 
   bindToggleTask(toggleTaskHandler) {
-    this.taskList.addEventListener("change", e => {
+    this.tasksUL.addEventListener("change", e => {
       if (e.target.type === "checkbox") {
         const id = parseInt(e.target.parentElement.id, 10);
         toggleTaskHandler(id);
