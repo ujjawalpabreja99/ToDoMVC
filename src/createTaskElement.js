@@ -1,7 +1,6 @@
 import createElement from "./createElement";
-const CHECKBOX = "checkbox";
-const SPAN = "span";
-const COMPLETE = "complete";
+import { CHECKBOX, COMPLETE, SPAN } from "./constants";
+
 export default function createTaskElement(task) {
   const li = createElement({ tag: "li", id: task.id });
   const checkbox = createElement({

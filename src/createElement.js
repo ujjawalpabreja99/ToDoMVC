@@ -1,27 +1,27 @@
-export default function createElement(newElement) {
-  const element = document.createElement(newElement.tag);
-  if (newElement.id) {
-    element.id = newElement.id;
+export default function createElement(element) {
+  const newElement = document.createElement(element.tag);
+  if (element.id) {
+    newElement.id = element.id;
   }
-  if (newElement.class) {
-    newElement.class.forEach(newClass => {
-      element.classList.add(newClass);
+  if (element.class) {
+    element.class.forEach(newClass => {
+      newElement.classList.add(newClass);
     });
   }
-  if (newElement.type) {
-    element.type = newElement.type;
+  if (element.type) {
+    newElement.type = element.type;
   }
-  if (newElement.placeholder) {
-    element.placeholder = newElement.placeholder;
+  if (element.placeholder) {
+    newElement.placeholder = element.placeholder;
   }
-  if (newElement.textContent) {
-    element.textContent = newElement.textContent;
+  if (element.textContent) {
+    newElement.textContent = element.textContent;
   }
-  if (newElement.checked) {
-    element.checked = newElement.checked;
+  if (element.checked) {
+    newElement.checked = element.checked;
   }
-  if (newElement.contentEditable) {
-    element.contentEditable = newElement.contentEditable;
+  if (element.contentEditable) {
+    newElement.contentEditable = element.contentEditable;
   }
-  return element;
+  return newElement;
 }
