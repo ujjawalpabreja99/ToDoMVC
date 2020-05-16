@@ -27,7 +27,7 @@ export default function createTaskElement(task) {
     tag: "button",
     id: "deleteTask",
     class: ["delete"],
-    textContent: "Delete"
+    textContent: "X"
   });
   li.append(checkbox, span, deleteButton);
   return li;

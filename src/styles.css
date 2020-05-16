@@ -32,7 +32,9 @@ form {
   text-align: center;
   min-width: 530px;
 }
-button {
+#renderAll,
+#renderPending,
+#renderCompleted {
   outline: none;
   cursor: pointer;
   background: rgba(175, 47, 47);
@@ -43,34 +45,44 @@ button {
   -webkit-appearance: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  min-width: 160px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
-button:active {
+#renderAll:active,
+#renderPending:active,
+#renderCompleted:active {
   background: rgba(175, 47, 47, 0.5);
+  border: none;
 }
 #submitTask {
   margin-left: 0.5rem;
   margin-right: 0;
 }
-#renderAll,
-#renderPending,
-#renderCompleted {
-  min-width: 160px;
-}
-#renderAll,
-#renderPending,
-#renderCompleted:active {
-  border: none;
-}
 .delete {
-  margin-left: 25px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 2px solid grey;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  outline: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: white;
+  margin-left: 15px;
+  border: none;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.5rem;
+  text-align: center;
+  vertical-align: middle;
+  transition: 0.3s;
 }
-.delete:active {
-  background: lightgrey;
-  border: 2px solid lightgrey;
+
+li:hover .delete {
+  color: rgba(175, 47, 47, 0.5);
+  transition: 0s;
+}
+li:hover .delete:hover {
+  color: rgba(175, 47, 47);
+  position: relative;
 }
 #taskInput {
   outline: none;
@@ -91,6 +103,12 @@ button:active {
   margin-right: 1rem;
   font-size: 5rem;
 }
+/* li label {
+  width: 24px;
+  height: 24px;
+  border: black;
+  background: black;
+} */
 
 header {
   color: rgba(0, 0, 0, 0.5);
@@ -109,9 +127,9 @@ li {
   display: flex;
   align-items: center;
   padding: 1rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   background: white;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   min-width: 500px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
@@ -121,7 +139,7 @@ li span {
   display: inline-block;
   padding: 0.5rem;
   width: 500px;
-  max-width: 350px;
+  /* max-width: 500px; */
   min-width: 300px;
   font-size: 25px;
   border-radius: 4px;
