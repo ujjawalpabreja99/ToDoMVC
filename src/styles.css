@@ -45,7 +45,7 @@ form {
   background: transparent;
   color: black;
   border-radius: 4px;
-  border: 2px solid white;
+  border: 1px solid white;
   /* margin: 0.2 0.2rem; */
   min-width: 100px;
   display: inline-block;
