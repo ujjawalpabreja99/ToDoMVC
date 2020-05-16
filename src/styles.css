@@ -66,14 +66,15 @@ form {
   color: white;
   margin-left: 15px;
   border: none;
-  border-radius: 50%;
   position: relative;
   cursor: pointer;
   display: inline-block;
+  font-family: sans-serif;
   font-size: 1.5rem;
   text-align: center;
   vertical-align: middle;
-  transition: 0.3s;
+  transition: 400ms;
+  transition-timing-function: linear;
 }
 
 li:hover .delete {
