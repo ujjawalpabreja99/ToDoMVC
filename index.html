@@ -21,14 +21,21 @@
         />
         <!-- <button id="submitTask">Submit</button> -->
       </form>
-      <ul id="tasksUL"></ul>
-      <div id="renderButton" class="buttonDiv">
-        <button id="renderAll">All tasks</button>
-        <button id="renderPending">Pending tasks</button>
-        <button id="renderCompleted">
-          Completed tasks
-        </button>
-      </div>
+      <ul>
+        <ul id="tasksUL"></ul>
+        <ul>
+          <li id="buttonsLI">
+            <a id="pendingCount"></a>
+            <div>
+              <button id="renderAll">All</button>
+              <button id="renderPending">Pending</button>
+              <button id="renderCompleted">Completed</button>
+            </div>
+            <a></a>
+          </li>
+        </ul>
+      </ul>
+      <!-- <ul id="renderButton" class="buttonDiv"> -->
     </div>
     <script src="/src/app.js"></script>
     <script src="/src/createElement.js"></script>

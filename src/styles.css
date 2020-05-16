@@ -28,31 +28,50 @@ form {
   min-width: 530px;
 }
 
-.buttonDiv {
+#buttonsLI a {
+  min-width: 80px;
+  font-size: 0.8rem;
+}
+#buttonsLI div {
+  float: middle;
   text-align: center;
-  min-width: 530px;
+  min-width: 370px;
 }
 #renderAll,
 #renderPending,
 #renderCompleted {
   outline: none;
   cursor: pointer;
-  background: rgba(175, 47, 47);
-  color: white;
-  border-radius: 5px;
-  margin: 0.2 0.2rem;
+  background: transparent;
+  color: black;
+  border-radius: 4px;
+  border: 2px solid white;
+  /* margin: 0.2 0.2rem; */
+  min-width: 100px;
   display: inline-block;
   -webkit-appearance: none;
   padding: 0.5rem 1rem;
-  font-size: 1rem;
-  min-width: 160px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1); */
+}
+#renderAll:hover,
+#renderPending:hover,
+#renderCompleted:hover {
+  /* background: rgba(175, 47, 47, 0.5); */
+  border: 1px solid rgba(175, 47, 47, 0.3);
+  transition: 0.3s;
+  /* border: none; */
 }
 #renderAll:active,
 #renderPending:active,
-#renderCompleted:active {
-  background: rgba(175, 47, 47, 0.5);
-  border: none;
+#renderCompleted:active,
+#renderAll:focus,
+#renderPending:focus,
+#renderCompleted:focus {
+  /* background: rgba(175, 47, 47, 0.5); */
+  border: 1px solid rgba(175, 47, 47);
+  transition: 0.3s;
+  /* border: none; */
 }
 #submitTask {
   margin-left: 0.5rem;
@@ -112,7 +131,8 @@ li:hover .delete:hover {
 } */
 
 header {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(175, 47, 47);
+  font-weight: 0;
   font-family: "Helvetica Neue";
   font-size: 100px;
   min-width: 530px;
@@ -150,12 +170,5 @@ li span:focus {
   box-shadow: 0 0 3pt 2pt rgba(0, 0, 0, 0.5);
 }
 .noTasks {
-  background: #f5f5f5;
-  color: rgba(0, 0, 0, 0.5);
   text-align: center;
-  font-family: "Helvetica Neue";
-  font-size: 30px;
-  font-weight: 50;
-  min-width: 500px;
-  padding: 1rem 1rem 1rem 1rem;
 }

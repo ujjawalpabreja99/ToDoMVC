@@ -2,8 +2,9 @@ import createElement from "./createElement";
 import { RENDERPENDING, RENDERCOMPLETED } from "./constants";
 
 export default function createPrompt(currentRender) {
-  const newPrompt = createElement({
-    tag: "div",
+  const newPromptLI = createElement({ tag: "li" });
+  const span = createElement({
+    tag: "span",
     class: ["noTasks"],
     textContent:
       currentRender === RENDERPENDING
@@ -12,5 +13,6 @@ export default function createPrompt(currentRender) {
         ? "No completed tasks!"
         : "No tasks!"
   });
-  return newPrompt;
+  newPromptLI.append(span);
+  return newPromptLI;
 }

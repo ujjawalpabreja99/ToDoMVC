@@ -14,6 +14,7 @@ export default class View {
     this.taskForm = this.getElement(constants.TASKFORM);
     this.taskInput = this.getElement(constants.TASKINPUT);
     this.tasksUL = this.getElement(constants.TASKSUL);
+    this.renderPendingCount = this.getElement(constants.PENDINGCOUNT);
     this.renderAllButton = this.getElement(constants.RENDERALL);
     this.renderPendingButton = this.getElement(constants.RENDERPENDING);
     this.renderCompletedButton = this.getElement(constants.RENDERCOMPLETED);
@@ -41,10 +42,21 @@ export default class View {
     }
   };
 
+  setPendingCount(pendingCount) {
+    if (pendingCount === 1) {
+      this.renderPendingCount.textContent =
+        pendingCount.toString() + " task left";
+    } else {
+      this.renderPendingCount.textContent =
+        pendingCount.toString() + " tasks left";
+    }
+  }
+
   renderTasks(tasks) {
     while (this.tasksUL.firstChild) {
       this.tasksUL.removeChild(this.tasksUL.firstChild);
     }
+    var pendingCount = 0;
     tasks.forEach(task => {
       if (
         this.currentRender === constants.RENDERALL ||
@@ -55,8 +67,10 @@ export default class View {
       ) {
         const taskLI = createTaskElement(task);
         this.tasksUL.append(taskLI);
+        pendingCount += task.status === constants.INCOMPLETE;
       }
     });
+    this.setPendingCount(pendingCount);
     if (!this.tasksUL.firstChild) {
       const promptLI = createPrompt(this.currentRender);
       this.tasksUL.append(promptLI);
